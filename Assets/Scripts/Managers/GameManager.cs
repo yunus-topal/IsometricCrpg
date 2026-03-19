@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using DataModels;
+using UnityEngine;
+
 namespace Managers
 {
     /**
@@ -7,8 +11,16 @@ namespace Managers
      * - Managing game progression (levels, quests, etc.)
      * - Handling game events and triggers
      */
-    public class GameManager
+    public class GameManager : MonoBehaviour
     {
+        public static GameManager Instance { get; private set; }
+        public List<Character> PlayerCharacters { get; private set; } = new List<Character>();
+        
+        // TODO: trigger combat manager.
+        public void StartCombat()
+        {
+            
+        }
         
     }
 }

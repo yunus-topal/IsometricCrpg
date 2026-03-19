@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64532951eab44a6bd1db873755c5030, type: 3}
   m_Name: CharacterSpritesDb
   m_EditorClassIdentifier: Assembly-CSharp::Databases.CharacterSpriteDb
-  entries:
-  - Id: 0
-    Sprite: {fileID: 0}
+  emptySprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  Sprites:
+  - {fileID: 21300000, guid: db2f2eb6da89d7e4491e5ff52e4df10f, type: 3}
+  - {fileID: 21300000, guid: 970bdefab1fc5be43be3fef5ce31bad7, type: 3}
+  - {fileID: 21300000, guid: 1f8e7c4fa1611f8459cd2f7bc32d8403, type: 3}
+  - {fileID: 21300000, guid: f9c8883412b645349a5a7bc02f1d4f60, type: 3}
+  - {fileID: 21300000, guid: d44413b6c44f40a4089e32da25c8ad6c, type: 3}
+  - {fileID: 21300000, guid: ed36656688dc12146aaa1179dd98213e, type: 3}
+  - {fileID: 21300000, guid: 4e75d602f593ffe4dbd9f9937012839b, type: 3}
+  - {fileID: 21300000, guid: 5ff69c4d17975c94ebacab69443811f0, type: 3}
+  - {fileID: 21300000, guid: 53b4645ff95be36479a94f38ece1615a, type: 3}
+  - {fileID: 21300000, guid: 39dea15caef91604697332266f8f0aed, type: 3}
