@@ -10,7 +10,7 @@ namespace DataModels
         public int Level { get; set; }
         public int Xp { get; set; }
         public Attributes Attributes { get; set; }
-        public string SpriteId { get; set; } // fetch from sprite db load on runtime.
+        public int SpriteId { get; set; } // fetch from sprite db load on runtime.
         public int CurrentHp { get; set; }
         public List<string> SkillIds { get; set; } // fetch from skill db load on runtime.
         
