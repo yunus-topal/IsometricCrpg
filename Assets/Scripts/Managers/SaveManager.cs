@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Managers
 {
+    // TODO: test properly when ui implemented
     public static class SaveManager
     {
         [CanBeNull] private static Save currentSave;
