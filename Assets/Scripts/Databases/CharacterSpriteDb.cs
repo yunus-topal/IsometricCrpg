@@ -26,8 +26,15 @@ namespace Databases
         
         public Sprite TryGet(int id)
         {
+            // safety
+            if(_spritesDict.Count == 0) {
+                for (int i = 0; i < Sprites.Count; i++)
+                {
+                    _spritesDict.Add(i, Sprites[i]);
+                }
+            }
             // try to get the sprite from the dictionary, if not found, return null and log an error.
-            if (_spritesDict.TryGetValue(id, out var sprite))            {
+            if (_spritesDict.TryGetValue(id, out var sprite))  {
                 return sprite;
             }
             // return an empty sprite entry if not found, should be handled on runtime to avoid null reference exception.
