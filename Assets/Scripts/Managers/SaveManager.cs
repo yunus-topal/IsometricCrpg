@@ -28,6 +28,7 @@ namespace Managers
                 if (currentSave != null)
                 {
                     PlayerPrefs.SetString(GlobalConstants.lastUsedSaveKey, currentSave.SaveName);
+                    PlayerPrefs.Save();
                 }
                 else
                 {

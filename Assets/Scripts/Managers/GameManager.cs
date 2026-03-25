@@ -14,11 +14,13 @@ namespace Managers
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
-        public List<Character> PlayerCharacters { get; private set; } = new List<Character>();
+        public List<CharacterData> PlayerCharacters { get; private set; } = new List<CharacterData>();
         
         // TODO: trigger combat manager.
         public void StartCombat()
         {
+            // get a colliding sphere around the player and find all enemies in it, then trigger combat manager with those characters.
+            
             
         }
         

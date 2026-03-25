@@ -4,6 +4,14 @@ using UnityEngine;
 
 public static class GlobalConstants
 {
+    // player pref keys
+    public static readonly string musicKey = "music";
+    public static readonly string soundKey = "sound";
+    // ui texts
+    public static readonly string musicText = "Music";
+    public static readonly string soundText = "Sound";
+    
+    // save file location
     public static readonly string saveFileLocation = Application.persistentDataPath + "/Saves/";
     // check player prefs using this
     public static readonly string lastUsedSaveKey = "lastUsedSave";

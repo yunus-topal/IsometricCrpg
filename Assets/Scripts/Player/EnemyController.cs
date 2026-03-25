@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 
 namespace Player
 {
-    public class PlayerController : MonoBehaviour
+    public class EnemyController : MonoBehaviour
     {
         [SerializeField] private CharacterData characterData;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
