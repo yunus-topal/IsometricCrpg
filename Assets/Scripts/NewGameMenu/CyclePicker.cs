@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace NewGameMenu.CyclePicker
+namespace NewGameMenu
 {
     /// <summary>
     /// Generic cycle-picker prefab component.
@@ -24,7 +24,9 @@ namespace NewGameMenu.CyclePicker
         public enum PickerMode { Image, Text, Integer, SpriteDb }
 
         // ── Inspector ─────────────────────────────────────────────────────────────
-
+        [Header("Label text (optional)")]
+        [SerializeField] private string label;
+        
         [Header("Mode")]
         [SerializeField] private PickerMode mode = PickerMode.Text;
 
@@ -52,6 +54,7 @@ namespace NewGameMenu.CyclePicker
         [SerializeField] private Button   btnRight;
         [SerializeField] private Image    displayImage;
         [SerializeField] private TMP_Text displayText;
+        [SerializeField] private TMP_Text labelText;
 
         [Header("Events")]
         public UnityEvent<int>    OnIndexChanged;  // Image / Text: fires with current index
@@ -247,6 +250,7 @@ namespace NewGameMenu.CyclePicker
 
         private void Refresh()
         {
+            labelText.text = label;
             switch (mode)
             {
                 case PickerMode.SpriteDb:
@@ -294,6 +298,12 @@ namespace NewGameMenu.CyclePicker
                 if (btnLeft)  btnLeft .interactable = hasContent && _index > 0;
                 if (btnRight) btnRight.interactable = hasContent && _index < count - 1;
             }
+        }
+        
+        // check upper limit for integer anyway
+        public void SetRightButtonInteractable(bool interactable)
+        {
+            if (btnRight) btnRight.interactable = interactable && _intValue < intMax;
         }
 
         // ── Event helpers ─────────────────────────────────────────────────────────

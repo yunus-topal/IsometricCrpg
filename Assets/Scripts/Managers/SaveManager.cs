@@ -7,7 +7,8 @@ using UnityEngine;
 
 namespace Managers
 {
-    // TODO: test properly when ui implemented
+    // TODO: think about putting an internal id to save files to avoid issues with renaming save files.
+    // TODO: handle autosave and quicksave too.
     public static class SaveManager
     {
         [CanBeNull] private static Save currentSave;
@@ -37,6 +38,11 @@ namespace Managers
             }
         }    
         
+        public static bool OverwriteSave(Save newSave, Save oldSave)
+        {
+            DeleteSave(oldSave);
+            return SaveGame(newSave);
+        }
         public static bool SaveGame(Save save)
         {
             if (save == null)
@@ -49,7 +55,7 @@ namespace Managers
                 Debug.LogError("SaveFile must have a valid SaveName.");
                 return false;
             }
-            save.SaveTime = DateTime.Now; // Update the save date to current time
+            save.SaveTime = DateTime.Now.ToString("o"); // Update the save date to current time
             return WriteToDisk(save);
         }
 

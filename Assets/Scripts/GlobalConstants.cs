@@ -12,7 +12,12 @@ public static class GlobalConstants
     public static readonly string soundText = "Sound";
     
     // save file location
-    public static readonly string saveFileLocation = Application.persistentDataPath + "/Saves/";
+    public static string saveFileLocation => Application.persistentDataPath + "/Saves/";    
+    
     // check player prefs using this
     public static readonly string lastUsedSaveKey = "lastUsedSave";
+    
+    // game related constants
+    public static readonly int maxAttributeValue = 18;
+    public static readonly int startingUnspentPoints = 10;
 }

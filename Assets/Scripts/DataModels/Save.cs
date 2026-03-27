@@ -6,9 +6,23 @@ namespace DataModels
     [Serializable]
     public class Save
     {
-        public string SaveName { get; set; } = "New Save";
-        public List<CharacterData> PlayerCharacters { get; set; } = new List<CharacterData>();
-        public DateTime SaveTime { get; set; } = DateTime.Now;
+        public string SaveName;
+        public List<CharacterData> PlayerCharacters;
+
+        public string SaveTime;
         // save quests, inventory, etc. later
+
+        public Save()
+        {
+            SaveName = "New Save";
+            PlayerCharacters = new List<CharacterData>();
+            SaveTime = DateTime.Now.ToString("o");
+        }
+        public Save (string saveName, List<CharacterData> playerCharacters)
+        {
+            SaveName = saveName;
+            PlayerCharacters = playerCharacters;
+            SaveTime = DateTime.Now.ToString("o");
+        }
     }
 }
