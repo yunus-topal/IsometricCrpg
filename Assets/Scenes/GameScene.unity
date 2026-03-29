@@ -285,6 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbac300e6b16ff4bb3fc40dee385fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Managers.GameManager
+  CharacterSpriteDb: {fileID: 0}
 --- !u!4 &292155096
 Transform:
   m_ObjectHideFlags: 0
@@ -577,7 +578,6 @@ GameObject:
   - component: {fileID: 750587349}
   - component: {fileID: 750587348}
   - component: {fileID: 750587347}
-  - component: {fileID: 750587352}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Untagged
@@ -707,38 +707,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &750587352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 750587346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1451491da1e89f147bdbf311d230ab05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  characterData:
-    Name: 
-    Class: 0
-    Level: 0
-    Xp: 0
-    SpriteId: 0
-    CurrentHp: 0
-    SkillIds: []
-    Attributes:
-      Strength: 0
-      Dexterity: 0
-      Agility: 0
-      Endurance: 0
-      Intelligence: 0
-      Willpower: 0
-    MaxHp: 0
-    Accuracy: 0
-    Evasion: 0
-    Resistance: 0
-    CriticalChance: 0
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,7 +1094,6 @@ GameObject:
   - component: {fileID: 1354879029}
   - component: {fileID: 1354879028}
   - component: {fileID: 1354879032}
-  - component: {fileID: 1354879033}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1256,38 +1223,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1354879033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1354879027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99023136fc539014db8d286a14d3b107, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerController
-  characterData:
-    Name: 
-    Class: 0
-    Level: 0
-    Xp: 0
-    SpriteId: 0
-    CurrentHp: 0
-    SkillIds: []
-    Attributes:
-      Strength: 0
-      Dexterity: 0
-      Agility: 0
-      Endurance: 0
-      Intelligence: 0
-      Willpower: 0
-    MaxHp: 0
-    Accuracy: 0
-    Evasion: 0
-    Resistance: 0
-    CriticalChance: 0
 --- !u!1 &1437167046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1301,7 +1236,6 @@ GameObject:
   - component: {fileID: 1437167049}
   - component: {fileID: 1437167048}
   - component: {fileID: 1437167047}
-  - component: {fileID: 1437167052}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Untagged
@@ -1431,38 +1365,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1437167052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1437167046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1451491da1e89f147bdbf311d230ab05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  characterData:
-    Name: 
-    Class: 0
-    Level: 0
-    Xp: 0
-    SpriteId: 0
-    CurrentHp: 0
-    SkillIds: []
-    Attributes:
-      Strength: 0
-      Dexterity: 0
-      Agility: 0
-      Endurance: 0
-      Intelligence: 0
-      Willpower: 0
-    MaxHp: 0
-    Accuracy: 0
-    Evasion: 0
-    Resistance: 0
-    CriticalChance: 0
 --- !u!1 &1575542143
 GameObject:
   m_ObjectHideFlags: 0

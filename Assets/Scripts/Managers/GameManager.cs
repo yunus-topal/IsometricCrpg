@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Databases;
 using DataModels;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ namespace Managers
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
+        
+        [SerializeField] private CharacterSpriteDb CharacterSpriteDb; // assign in inspector, should be used to fetch sprites for characters on runtime.
         public List<CharacterData> PlayerCharacters { get; private set; } = new List<CharacterData>();
         
         // TODO: trigger combat manager.
@@ -24,5 +27,9 @@ namespace Managers
             
         }
         
+        public Sprite GetCharacterSprite(int id)
+        {
+            return CharacterSpriteDb.GetSpriteById(id);
+        }
     }
 }

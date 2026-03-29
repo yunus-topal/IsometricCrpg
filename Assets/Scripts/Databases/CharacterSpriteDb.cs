@@ -11,7 +11,6 @@ namespace Databases
         public List<Sprite> Sprites = new List<Sprite>();
         
         private Dictionary<int, Sprite> _spritesDict = new Dictionary<int, Sprite>();
-        public Dictionary<int, Sprite> SpritesDict => _spritesDict;
         
         private void OnEnable()
         {
@@ -24,7 +23,7 @@ namespace Databases
         }
         
         
-        public Sprite TryGet(int id)
+        public Sprite GetSpriteById(int id)
         {
             // safety
             if(_spritesDict.Count == 0) {

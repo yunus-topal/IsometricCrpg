@@ -257,7 +257,7 @@ namespace NewGameMenu
                     SetDisplayMode(showImage: true);
                     RefreshButtonStates(ItemCount());
                     if (ItemCount() > 0 && displayImage != null)
-                        displayImage.sprite = spriteDb.TryGet(_index);
+                        displayImage.sprite = spriteDb.GetSpriteById(_index);
                     break;
                 case PickerMode.Image:
                     SetDisplayMode(showImage: true);

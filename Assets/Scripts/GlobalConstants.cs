@@ -20,4 +20,8 @@ public static class GlobalConstants
     // game related constants
     public static readonly int maxAttributeValue = 18;
     public static readonly int startingUnspentPoints = 10;
+    
+    public static readonly int baseCritChance = 5;
+    public static readonly int baseEvasion = 5;
+    public static readonly int baseEnduranceMultiplier = 5;
 }
