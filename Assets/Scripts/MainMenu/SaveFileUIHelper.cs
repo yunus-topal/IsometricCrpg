@@ -1,5 +1,5 @@
 using DataModels;
-using Managers;
+using InGameManagers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

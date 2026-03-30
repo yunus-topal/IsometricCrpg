@@ -1,4 +1,4 @@
-using Managers;
+using InGameManagers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;

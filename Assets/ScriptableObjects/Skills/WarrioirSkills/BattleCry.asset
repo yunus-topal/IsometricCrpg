@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b12abcb894dfa547b7fa6d0aa1a72cc, type: 3}
-  m_Name: Charge
+  m_Name: BattleCry
   m_EditorClassIdentifier: Assembly-CSharp::DataModels.SkillSystem.SkillBase
-  skillName: Charge
-  description: Warrior charges in a direction until max range or an obstacle. Deals
-    damage to all enemies on his path.
-  icon: {fileID: 0}
-  cooldown: 2
-  range: 6
-  targetingMode: 4
+  skillName: Battle Cry
+  description: 'Warrior throws a battle cry and gains Xyz effect for 2 turns. '
+  icon: {fileID: 21300000, guid: e88a88357ef7ec044a1b0ac1e7d86261, type: 3}
+  cooldown: 3
+  range: 0
+  targetingMode: 2
   shape:
     shape: 0
     radius: 2
@@ -26,12 +25,12 @@ MonoBehaviour:
     length: 5
     coneAngle: 45
     indicatorMaterialOverride: {fileID: 0}
-  baseValue: 10
-  scaling: []
+  minValue: 0
+  maxValue: 0
   prerequisites:
-    requiredClass: 
+    eligibleClasses: 1
     requiredLevel: 1
     requiredSkills: []
     requiredAttributes: []
-    requiredWeapon: 0
+    eligibleWeapons: -1
   flavorText: 

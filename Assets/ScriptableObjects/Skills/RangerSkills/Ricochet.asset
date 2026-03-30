@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b12abcb894dfa547b7fa6d0aa1a72cc, type: 3}
+  m_Name: Ricochet
+  m_EditorClassIdentifier: Assembly-CSharp::DataModels.SkillSystem.SkillBase
+  skillName: Ricochet
+  description: Ranger attacks an enemy. If there is another enemy nearby, arrow ricochets
+    to the other enemies up to 2 times. Secondary targets take only half damage.
+  icon: {fileID: 21300000, guid: 553904c23003d5f448fbed5d21b6616a, type: 3}
+  cooldown: 3
+  range: 9
+  targetingMode: 0
+  shape:
+    shape: 0
+    radius: 2
+    width: 2
+    length: 5
+    coneAngle: 45
+    indicatorMaterialOverride: {fileID: 0}
+  minValue: 35
+  maxValue: 50
+  prerequisites:
+    eligibleClasses: 2
+    requiredLevel: 1
+    requiredSkills: []
+    requiredAttributes: []
+    eligibleWeapons: 24
+  flavorText: 

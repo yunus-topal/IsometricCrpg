@@ -50,7 +50,7 @@ namespace Databases
 
             foreach (var skill in Skills)
             {
-                if (skill.prerequisites.requiredClass.Count == 0 || skill.prerequisites.requiredClass.Contains(characterClass))
+                if (skill.prerequisites.eligibleClasses.HasFlag((CharacterClassFlags)(1 << (int)characterClass)))
                 {
                     skills.Add(skill);
                 }

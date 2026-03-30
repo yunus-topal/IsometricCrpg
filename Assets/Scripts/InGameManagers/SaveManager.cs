@@ -5,7 +5,7 @@ using DataModels;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Managers
+namespace InGameManagers
 {
     // TODO: think about putting an internal id to save files to avoid issues with renaming save files.
     // TODO: handle autosave and quicksave too.

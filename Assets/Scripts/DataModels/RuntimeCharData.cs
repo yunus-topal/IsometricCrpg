@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using DataModels.SkillSystem;
 using Enums;
-using Managers;
+using InGameManagers;
 using UnityEngine;
 
 namespace DataModels
@@ -10,6 +10,7 @@ namespace DataModels
     {
         public Sprite Sprite; // fetch from sprite db load on runtime.
         public List<SkillBase> Skills = new(); // TODO: convert to Skill object once it finalized.
+        public string EquippedWeapon; // TODO: convert to Weapon object once it finalized.
         
         // TODO: keep track of selected traits, applied effects (not the ones applied during combat), equipment, inventory, etc.
         // they should be used for updating runtime stats.
@@ -22,8 +23,9 @@ namespace DataModels
             Xp = data.Xp;
             Sprite = GameManager.Instance.GetCharacterSprite(data.SpriteId);
             CurrentHp = data.CurrentHp;
-            Skills = new(); // TODO: convert to Skill object once it finalized.
+            Skills = new();
             Attributes = data.Attributes;
+            // TODO: intialize weapon here later.
             
             CalculateDerivedStats();
         }

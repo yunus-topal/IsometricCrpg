@@ -31,7 +31,7 @@ namespace DataModels
         public int CriticalChance;
         
         // for later: selected traits, applied effects (not the ones applied during combat), equipment, inventory, etc.
-
+        public string EquippedWeaponId; // runtime char should fetch the actual weapon data from the weapon db using this id on runtime.
         
         public CharacterData (CharacterSo so)
         {
@@ -42,6 +42,7 @@ namespace DataModels
             SpriteId = so.SpriteId;
             CurrentHp = so.CurrentHp; // start with base hp
             Attributes = so.Attributes;
+            //TODO: handle weapon id from so when weapon system is ready.
             
             CalculateDerivedStats();
         }

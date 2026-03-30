@@ -3,7 +3,7 @@ using Databases;
 using DataModels;
 using UnityEngine;
 
-namespace Managers
+namespace InGameManagers
 {
     /**
      * Should handle game overall game state by controlling these:

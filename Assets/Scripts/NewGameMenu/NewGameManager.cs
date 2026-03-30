@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using DataModels;
 using Enums;
-using Managers;
+using InGameManagers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

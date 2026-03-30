@@ -7,6 +7,15 @@
         Mage,
         Priest
     }
+    
+    [System.Flags]
+    public enum CharacterClassFlags
+    {
+        Warrior = 1 << 0,
+        Ranger    = 1 << 1,
+        Mage   = 1 << 2,
+        Priest  = 1 << 3
+    }
 
     public static class CharacterClassExtensions
     {

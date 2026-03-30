@@ -13,10 +13,11 @@ namespace DataModels.SkillSystem
         SingleEnemy,      // click a target
         SingleAlly,
         Self,
-        GroundCircle,     // click ground → circle AoE
-        GroundRectangle,  // click ground → rect AoE
-        DirectionalCone,  // aims in caster direction
-        DirectionalLine,  // thin laser-style line
+        CircleFree,      // click a point on the ground, circle AoE around it
+        CircleCasterCentred, // circle around caster, no target needed
+        RectangleFromCaster, // rectangle extending from caster, no target needed
+        ConeFromCaster,  // aims in caster direction
+        LineFromCaster,  // thin laser-style line
         Cross,            // + shaped, caster-centred
         Global            // no targeting needed
     }
@@ -31,8 +32,8 @@ namespace DataModels.SkillSystem
     public class SkillPrerequisites
     {
         [Header("Class")]
-        [Tooltip("Any of these classes can learn the skill. Empty means no class requirement.")]
-        public List<CharacterClass> requiredClass;
+        [Tooltip("Any of these classes can learn the skill.")]
+        public CharacterClassFlags eligibleClasses ;
 
         [Header("Level")]
         public int requiredLevel = 1;
@@ -44,12 +45,15 @@ namespace DataModels.SkillSystem
         public List<AttributeRequirement> requiredAttributes = new();
 
         [Header("Weapon")]
-        public WeaponType requiredWeapon = WeaponType.Any;
+        [Tooltip("Any of these weapon types can use the skill.")]
+        public WeaponTypeFlags eligibleWeapons;
 
         // Returns true when all requirements are met for the given character.
         public bool IsMet(RuntimeCharData charData)
         {
-            if (requiredClass.Count == 0 || requiredClass.Contains(charData.Class))
+            // Convert the plain enum to its flag equivalent by name
+            CharacterClassFlags characterFlag = (CharacterClassFlags)(1 << (int)charData.Class);
+            if ((eligibleClasses & characterFlag) == 0)
                 return false;
 
             if (charData.Level < requiredLevel)
@@ -62,11 +66,12 @@ namespace DataModels.SkillSystem
             foreach (var attr in requiredAttributes)
                 if (charData.Attributes.GetAttribute(attr.stat) < attr.minValue)
                     return false;
-
-            // TODO later
-            // if (requiredWeapon != WeaponType.Any && charData.equippedWeapon != requiredWeapon)
-            //     return false;
-
+            
+            // todo: extract weapon type from weapon class once it is implemented.
+            WeaponTypeFlags weaponFlag = (WeaponTypeFlags)(1 << (int)1 /*charData.EquippedWeapon.WeaponType*/);
+            if ((eligibleWeapons & weaponFlag) == 0)
+                return false;
+                
             return true;
         }
     }
@@ -81,18 +86,6 @@ namespace DataModels.SkillSystem
 // ─────────────────────────────────────────────
 //  Stat scaling entry
 // ─────────────────────────────────────────────
-
-// TODO: change this logic.
-    [System.Serializable]
-    public class StatScaling
-    {
-        public AttributeType stat;
-        [Range(0f, 5f)]
-        [Tooltip("Multiplier applied to the stat value (e.g. 0.5 = 50% of Strength added to damage).")]
-        public float ratio;
-
-        public float ComputeBonus(RuntimeCharData stats) => stats.Attributes.GetAttribute(stat) * ratio;
-    }
 
 // ─────────────────────────────────────────────
 //  Target shape for AoE visualisation
@@ -166,9 +159,10 @@ namespace DataModels.SkillSystem
         public TargetShapeData shape;
 
         [Header("Damage / Heal scaling")]
-        [Tooltip("Base value before scaling (damage, heal amount, etc.).")]
-        public float baseValue = 10f;
-        public List<StatScaling> scaling = new();
+        [Tooltip("Min value before scaling (damage, heal amount, etc.).")]
+        public float minValue = 10f;
+        [Tooltip("Max value before scaling (damage, heal amount, etc.).")]
+        public float maxValue = 10f;      
 
         // [Header("Status effects applied on cast")]
         // public List<SkillStatusEffectEntry> statusEffects = new();
@@ -184,24 +178,5 @@ namespace DataModels.SkillSystem
 
         /// <summary>Returns true if the character meets all prerequisites.</summary>
         public bool CanLearn(RuntimeCharData charData) => prerequisites.IsMet(charData);
-
-        /// <summary>Computes the total effective value (damage/heal) for a caster.</summary>
-        public float ComputeValue(RuntimeCharData caster)
-        {
-            float total = baseValue;
-            foreach (var s in scaling)
-                total += s.ComputeBonus(caster);
-            return total;
-        }
-
-        /// <summary>Builds the portion of the tooltip showing scaling breakdown.</summary>
-        public string BuildScalingTooltip()
-        {
-            if (scaling.Count == 0) return string.Empty;
-            var sb = new System.Text.StringBuilder();
-            foreach (var s in scaling)
-                sb.AppendLine($"+ {s.ratio * 100:0}% {s.stat}");
-            return sb.ToString().TrimEnd();
-        }
     }
 }

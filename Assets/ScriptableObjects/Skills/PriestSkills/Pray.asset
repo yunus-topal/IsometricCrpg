@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b12abcb894dfa547b7fa6d0aa1a72cc, type: 3}
+  m_Name: Pray
+  m_EditorClassIdentifier: Assembly-CSharp::DataModels.SkillSystem.SkillBase
+  skillName: Pray
+  description: 'Priest cites a prayer, clearing debuffs from the target and healing. '
+  icon: {fileID: 21300000, guid: a7effcff040e49e47b00e50304acaa03, type: 3}
+  cooldown: 2
+  range: 8
+  targetingMode: 1
+  shape:
+    shape: 0
+    radius: 2
+    width: 2
+    length: 5
+    coneAngle: 45
+    indicatorMaterialOverride: {fileID: 0}
+  minValue: 20
+  maxValue: 25
+  prerequisites:
+    eligibleClasses: 8
+    requiredLevel: 1
+    requiredSkills: []
+    requiredAttributes: []
+    eligibleWeapons: -1
+  flavorText: 
