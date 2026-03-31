@@ -31,6 +31,7 @@ namespace DataModels.SkillSystem
     [System.Serializable]
     public class SkillPrerequisites
     {
+        [Header("Learning requirements")]
         [Header("Class")]
         [Tooltip("Any of these classes can learn the skill.")]
         public CharacterClassFlags eligibleClasses ;
@@ -44,12 +45,13 @@ namespace DataModels.SkillSystem
         [Header("Attributes")]
         public List<AttributeRequirement> requiredAttributes = new();
 
+        [Header("Usage requirements")]
         [Header("Weapon")]
         [Tooltip("Any of these weapon types can use the skill.")]
         public WeaponTypeFlags eligibleWeapons;
 
         // Returns true when all requirements are met for the given character.
-        public bool IsMet(RuntimeCharData charData)
+        public bool CanLearn(RuntimeCharData charData)
         {
             // Convert the plain enum to its flag equivalent by name
             CharacterClassFlags characterFlag = (CharacterClassFlags)(1 << (int)charData.Class);
@@ -66,12 +68,18 @@ namespace DataModels.SkillSystem
             foreach (var attr in requiredAttributes)
                 if (charData.Attributes.GetAttribute(attr.stat) < attr.minValue)
                     return false;
+                
+            return true;
+        }
+        
+        public bool CanUse(RuntimeCharData charData)
+        {
+            // TODO: also check status effects, traits, etc. that might prevent using the skill.
+            // e.g. ensnared character can't use skills that require movement, silenced character can't use skills that require speech, etc.
             
-            // todo: extract weapon type from weapon class once it is implemented.
             WeaponTypeFlags weaponFlag = (WeaponTypeFlags)(1 << (int)1 /*charData.EquippedWeapon.WeaponType*/);
             if ((eligibleWeapons & weaponFlag) == 0)
                 return false;
-                
             return true;
         }
     }
@@ -177,6 +185,6 @@ namespace DataModels.SkillSystem
         // ── Helpers ──────────────────────────────────────────────────────────
 
         /// <summary>Returns true if the character meets all prerequisites.</summary>
-        public bool CanLearn(RuntimeCharData charData) => prerequisites.IsMet(charData);
+        public bool CanLearn(RuntimeCharData charData) => prerequisites.CanLearn(charData);
     }
 }
