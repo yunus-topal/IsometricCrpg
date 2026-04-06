@@ -1,16 +1,48 @@
+using System.Collections.Generic;
+using System.Linq;
+using DataModels;
 using UnityEngine;
 
-public class StatusEffectDb : MonoBehaviour
+namespace Databases
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [CreateAssetMenu(menuName = "Database/StatusEffects")]
+    public class StatusEffectDb : ScriptableObject
     {
+        public List<StatusEffectBase> StatusEffects = new List<StatusEffectBase>();
         
-    }
+        private Dictionary<string, StatusEffectBase> _statusEffectsDict = new();
+        
+        private void OnEnable()
+        {
+            _statusEffectsDict = StatusEffects
+                .Where(s => s != null && !string.IsNullOrEmpty(s.statusEffectId))
+                .ToDictionary(s => s.statusEffectName);
+        }
+        
+        public List<StatusEffectBase> GetAllStatusEffects()
+        {
+            return StatusEffects;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
+        public StatusEffectBase GetStatusEffectById(string id)
+        {
+            if (_statusEffectsDict.TryGetValue(id, out var statusEffect))
+                return statusEffect;
+
+            Debug.LogError($"Status effect with id '{id}' not found in StatusEffectDatabase.");
+            return null;
+        }
         
+        public List<StatusEffectBase> GetStatusEffectsByIds(List<string> ids)
+        {
+            List<StatusEffectBase> statusEffects = new List<StatusEffectBase>();
+            foreach (var id in ids)
+            {
+                var statusEffect = GetStatusEffectById(id);
+                if (statusEffect != null)
+                    statusEffects.Add(statusEffect);
+            }
+            return statusEffects;
+        }
     }
 }

@@ -153,7 +153,9 @@ namespace DataModels
     {
         [Header("Identity")]
         public string skillName;
-
+        
+        // hide id from editor since it's auto-generated and not meant to be edited by hand
+        [HideInInspector]
         public string SkillId; // GUID
         [TextArea(2, 4)]
         public string description;

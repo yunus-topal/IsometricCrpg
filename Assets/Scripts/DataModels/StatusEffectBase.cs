@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DataModels
 {
@@ -36,12 +37,26 @@ namespace DataModels
     public class StatusEffectBase : ScriptableObject
     {
         [Header("Identity")]
-        public string skillName;
+        public string statusEffectName;
+        // hide id from editor since it's auto-generated and not meant to be edited by hand
+        [HideInInspector]
+        public string statusEffectId;
         [TextArea(2, 4)]
         public string description;
         public Sprite icon;
         
         public StackingBehavior stackingBehavior;
         public RestrictionType restrictionType;
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (string.IsNullOrEmpty(statusEffectId))
+            {
+                statusEffectId = System.Guid.NewGuid().ToString();
+                UnityEditor.EditorUtility.SetDirty(this); // marks asset dirty so Unity saves it
+            }
+        }
+#endif
     }
 }
