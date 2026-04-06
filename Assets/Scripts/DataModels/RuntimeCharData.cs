@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DataModels.SkillSystem;
 using Enums;
 using InGameManagers;
 using UnityEngine;
@@ -14,6 +13,8 @@ namespace DataModels
         
         // TODO: keep track of selected traits, applied effects (not the ones applied during combat), equipment, inventory, etc.
         // they should be used for updating runtime stats.
+        
+        public List<StatusEffectBase> StatusEffects = new();
 
         public RuntimeCharData(CharacterData data)
         {
@@ -23,9 +24,10 @@ namespace DataModels
             Xp = data.Xp;
             Sprite = GameManager.Instance.GetCharacterSprite(data.SpriteId);
             CurrentHp = data.CurrentHp;
-            Skills = new();
             Attributes = data.Attributes;
-            // TODO: intialize weapon here later.
+            
+            // TODO: initialize skills, stattus effects, items etc. here using the ids in the base data, for now just leave it empty.
+            Skills = GameManager.Instance.GetSkillsByCharData(this); // TODO: also add skills coming from equipped weapon and traits when those systems are ready.
             
             CalculateDerivedStats();
         }

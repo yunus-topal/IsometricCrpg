@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Enums;
+using InGameManagers;
 using UnityEngine;
 
 namespace DataModels
@@ -19,7 +20,7 @@ namespace DataModels
         public int Xp;
         public int SpriteId;
         public int CurrentHp;
-        public List<string> SkillIds = new();
+        public List<SkillBase> Skills = new();
         public Attributes Attributes = new();
                 
         // additional data that should be generated on runtime, not saved to save file using base data.
@@ -39,7 +40,7 @@ namespace DataModels
             Xp          = Xp,
             SpriteId    = SpriteId,
             CurrentHp   = CurrentHp,
-            SkillIds    = new List<string>(SkillIds),
+            SkillIds    = GameManager.Instance?.GetSkillIds(this.Skills), // double conversion but don't want to break order of conversions between these 3 classes.
             Attributes  = new Attributes
             {
                 Strength     = Attributes.Strength,
@@ -59,7 +60,7 @@ namespace DataModels
             Xp         = data.Xp;
             SpriteId   = data.SpriteId;
             CurrentHp  = data.CurrentHp;
-            SkillIds   = new List<string>(data.SkillIds);
+            Skills = GameManager.Instance?.GetSkillsByCharData(data) ?? new List<SkillBase>(); // TODO: also add skills coming from equipped weapon and traits when those systems are ready.
             Attributes = data.Attributes;
         }
     }

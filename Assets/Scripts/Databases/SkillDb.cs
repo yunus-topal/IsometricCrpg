@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DataModels.SkillSystem;
+using DataModels;
 using Enums;
 using UnityEngine;
 
@@ -56,6 +56,11 @@ namespace Databases
                 }
             }
             return skills;
+        }
+
+        public int GetSkillId(SkillBase skill)
+        {
+            return Skills.IndexOf(skill);
         }
     }
 }

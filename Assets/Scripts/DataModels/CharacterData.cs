@@ -20,7 +20,7 @@ namespace DataModels
         public int Xp;
         public int SpriteId; // fetch from sprite db load on runtime.
         public int CurrentHp;
-        public List<string> SkillIds = new();
+        public List<int> SkillIds = new();
         public Attributes Attributes = new(); // fetch from skill db load on runtime.
         
         // additional data that should be generated on runtime, not saved to save file using base data.

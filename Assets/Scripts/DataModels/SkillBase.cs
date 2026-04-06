@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using System.Linq;
 using Enums;
 using UnityEngine;
 
-namespace DataModels.SkillSystem
+namespace DataModels
 {
     // ─────────────────────────────────────────────
 //  Enums shared across the skill system
@@ -46,6 +45,10 @@ namespace DataModels.SkillSystem
         public List<AttributeRequirement> requiredAttributes = new();
 
         [Header("Usage requirements")]
+        [Header("Status effects")]
+        [Tooltip("Must NOT have any of these status effects to use the skill.")]
+        public RestrictionTypeFlags prohibitedStatusEffects;
+        
         [Header("Weapon")]
         [Tooltip("Any of these weapon types can use the skill.")]
         public WeaponTypeFlags eligibleWeapons;
@@ -74,8 +77,7 @@ namespace DataModels.SkillSystem
         
         public bool CanUse(RuntimeCharData charData)
         {
-            // TODO: also check status effects, traits, etc. that might prevent using the skill.
-            // e.g. ensnared character can't use skills that require movement, silenced character can't use skills that require speech, etc.
+            // TODO: get current status effects from char data and check against prohibitedStatusEffects using RestrictionTypeFlags.
             
             WeaponTypeFlags weaponFlag = (WeaponTypeFlags)(1 << (int)1 /*charData.EquippedWeapon.WeaponType*/);
             if ((eligibleWeapons & weaponFlag) == 0)

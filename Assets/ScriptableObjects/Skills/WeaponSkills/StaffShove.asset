@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b12abcb894dfa547b7fa6d0aa1a72cc, type: 3}
-  m_Name: WandBaseAttack
+  m_Name: StaffShove
   m_EditorClassIdentifier: Assembly-CSharp::DataModels.SkillSystem.SkillBase
   skillName: Attack
   description: Character attacks with the weapon.
-  icon: {fileID: 21300000, guid: cf968eb9a4105f54f915f06d267f9cad, type: 3}
+  icon: {fileID: 21300000, guid: cb1011c3fa64cb64c93bf92191f97912, type: 3}
   cooldown: 1
   range: 0
   targetingMode: 0
