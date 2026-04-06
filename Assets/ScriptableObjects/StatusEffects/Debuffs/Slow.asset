@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cba46f8b1b6e4c86b158d7741412f3be, type: 3}
-  m_Name: Stun
+  m_Name: Slow
   m_EditorClassIdentifier: Assembly-CSharp::DataModels.StatusEffectBase
-  statusEffectName: 
-  statusEffectId: 852b56e4-3148-4c5d-8981-cf7a8ae127dd
-  description: 
-  icon: {fileID: 0}
+  statusEffectName: Slowed
+  statusEffectId: 1b362449-9e4d-4b53-804e-623497a3003e
+  description: Characters movement capacity reduced.
+  icon: {fileID: 21300000, guid: 2e65637f8035097448360ef5f9929cd8, type: 3}
   stackingBehavior: 0
-  restrictionType: 1
+  restrictionType: 5

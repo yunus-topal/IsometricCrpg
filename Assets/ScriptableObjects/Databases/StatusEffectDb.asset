@@ -12,4 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6604528de5b533e4e852454b7a1defc5, type: 3}
   m_Name: StatusEffectDb
   m_EditorClassIdentifier: Assembly-CSharp::Databases.StatusEffectDb
-  StatusEffects: []
+  StatusEffects:
+  - {fileID: 11400000, guid: 2e003382850ad4d4f9a6dd0f0be1f965, type: 2}
+  - {fileID: 11400000, guid: a86b6b81c776de845b52edf7aadb018e, type: 2}
+  - {fileID: 11400000, guid: 3502aea10310639479bcc70c5cc6e2cf, type: 2}
+  - {fileID: 11400000, guid: 9a94d22bd569f4e45bb1129091ce92b5, type: 2}
+  - {fileID: 11400000, guid: ce9e612ee0acae545a0eafd0606b476d, type: 2}
+  - {fileID: 11400000, guid: fac0120e589509a48a86c2c6a4c25220, type: 2}
+  - {fileID: 11400000, guid: 5cc4953ccdd519b4fb1e74071f77d3ee, type: 2}
+  - {fileID: 11400000, guid: e1248ec7a0e713b47aa5544a59f039f0, type: 2}
+  - {fileID: 11400000, guid: 53b65ed2d81858a4aba6da2c3aa21689, type: 2}
