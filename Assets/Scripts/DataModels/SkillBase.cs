@@ -153,6 +153,8 @@ namespace DataModels
     {
         [Header("Identity")]
         public string skillName;
+
+        public string SkillId; // GUID
         [TextArea(2, 4)]
         public string description;
         public Sprite icon;
@@ -188,5 +190,16 @@ namespace DataModels
 
         /// <summary>Returns true if the character meets all prerequisites.</summary>
         public bool CanLearn(RuntimeCharData charData) => prerequisites.CanLearn(charData);
+        
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (string.IsNullOrEmpty(SkillId))
+            {
+                SkillId = System.Guid.NewGuid().ToString();
+                UnityEditor.EditorUtility.SetDirty(this); // marks asset dirty so Unity saves it
+            }
+        }
+#endif
     }
 }

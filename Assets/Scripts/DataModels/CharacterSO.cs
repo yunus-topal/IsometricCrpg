@@ -40,7 +40,7 @@ namespace DataModels
             Xp          = Xp,
             SpriteId    = SpriteId,
             CurrentHp   = CurrentHp,
-            SkillIds    = GameManager.Instance?.GetSkillIds(this.Skills), // double conversion but don't want to break order of conversions between these 3 classes.
+            SkillIds    = Skills.ConvertAll(s => s.SkillId), // convert skill objects to their ids for saving.
             Attributes  = new Attributes
             {
                 Strength     = Attributes.Strength,
@@ -60,7 +60,7 @@ namespace DataModels
             Xp         = data.Xp;
             SpriteId   = data.SpriteId;
             CurrentHp  = data.CurrentHp;
-            Skills = GameManager.Instance?.GetSkillsByCharData(data) ?? new List<SkillBase>(); // TODO: also add skills coming from equipped weapon and traits when those systems are ready.
+            Skills = GameManager.Instance.SkillDb.GetSkillsByIds(data.SkillIds) ?? new List<SkillBase>(); // TODO: also add skills coming from equipped weapon and traits when those systems are ready.
             Attributes = data.Attributes;
         }
     }

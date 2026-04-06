@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DataModels;
 using Enums;
 using UnityEngine;
@@ -10,38 +11,38 @@ namespace Databases
     {
         public List<SkillBase> Skills = new List<SkillBase>();
         
-        private Dictionary<int, SkillBase> _skillsDict = new Dictionary<int, SkillBase>();
+        private Dictionary<string, SkillBase> _skillsDict = new();
         
         private void OnEnable()
         {
-            // populate the dictionary with the skills from the list, using the index as the id.
-            _skillsDict.Clear();
-            for (int i = 0; i < Skills.Count; i++)
-            {
-                _skillsDict.Add(i, Skills[i]);
-            }
+            _skillsDict = Skills
+                .Where(s => s != null && !string.IsNullOrEmpty(s.SkillId))
+                .ToDictionary(s => s.SkillId);
         }
         
         public List<SkillBase> GetAllSkills()
         {
             return Skills;
         }
-        public SkillBase GetSkillById(int id)
+        public SkillBase GetSkillById(string id)
         {
-            // safety
-            if(_skillsDict.Count == 0) {
-                for (int i = 0; i < Skills.Count; i++)
-                {
-                    _skillsDict.Add(i, Skills[i]);
-                }
-            }
-            // try to get the skill from the dictionary, if not found, return null and log an error.
-            if (_skillsDict.TryGetValue(id, out var skill))  {
+            if (_skillsDict.TryGetValue(id, out var skill))
                 return skill;
-            }
-            // return null if not found, should be handled on runtime to avoid null reference exception.
-            Debug.LogError("Skill with id " + id + " not found in SkillDatabase.");
+
+            Debug.LogError($"Skill with id '{id}' not found in SkillDatabase.");
             return null;
+        }
+        
+        public List<SkillBase> GetSkillsByIds(List<string> ids)
+        {
+            List<SkillBase> skills = new List<SkillBase>();
+            foreach (var id in ids)
+            {
+                var skill = GetSkillById(id);
+                if (skill != null)
+                    skills.Add(skill);
+            }
+            return skills;
         }
         
         public List<SkillBase> GetSkillsByClass(CharacterClass characterClass)
@@ -56,11 +57,6 @@ namespace Databases
                 }
             }
             return skills;
-        }
-
-        public int GetSkillId(SkillBase skill)
-        {
-            return Skills.IndexOf(skill);
         }
     }
 }

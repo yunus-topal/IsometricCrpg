@@ -27,7 +27,7 @@ namespace DataModels
             Attributes = data.Attributes;
             
             // TODO: initialize skills, stattus effects, items etc. here using the ids in the base data, for now just leave it empty.
-            Skills = GameManager.Instance.GetSkillsByCharData(this); // TODO: also add skills coming from equipped weapon and traits when those systems are ready.
+            Skills = GameManager.Instance.SkillDb.GetSkillsByIds(base.SkillIds); // TODO: also add skills coming from equipped weapon and traits when those systems are ready.
             
             CalculateDerivedStats();
         }

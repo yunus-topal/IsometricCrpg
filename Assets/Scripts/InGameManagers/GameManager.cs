@@ -17,7 +17,10 @@ namespace InGameManagers
         public static GameManager Instance { get; private set; }
         
         [SerializeField] private CharacterSpriteDb CharacterSpriteDb; // assign in inspector, should be used to fetch sprites for characters on runtime.
-        [SerializeField] private SkillDb SkillDb; // assign in inspector, should be used to fetch skills for characters on runtime.
+        public SkillDb SkillDb { get; private set; } // assign in inspector, should be used to fetch skills for characters on runtime.
+        // public get but private set for dbs
+        public CharacterSpriteDb GetCharacterSpriteDb() => CharacterSpriteDb;
+        public SkillDb GetSkillDb() => SkillDb;
         
         
         public List<CharacterData> PlayerCharacters { get; private set; } = new List<CharacterData>();
@@ -29,48 +32,9 @@ namespace InGameManagers
             
             
         }
-        
         public Sprite GetCharacterSprite(int id)
         {
             return CharacterSpriteDb.GetSpriteById(id);
-        }
-        
-        public List<SkillBase> GetSkillsByCharData(CharacterData charData)
-        {
-            List<SkillBase> skills = new List<SkillBase>();
-            foreach (var id in charData.SkillIds)
-            {
-                skills.Add(SkillDb.GetSkillById(id));
-            }
-            return skills;
-        }
-        
-        public List<SkillBase> GetSkillsByIds(List<int> skillIds)
-        {
-            List<SkillBase> skills = new List<SkillBase>();
-            foreach (var id in skillIds)
-            {
-                skills.Add(SkillDb.GetSkillById(id));
-            }
-            return skills;
-        }
-        
-        public List<int> GetSkillIds(List<SkillBase> skills)
-        {
-            List<int> skillIds = new List<int>();
-            foreach (var skill in skills)
-            {
-                int id = SkillDb.GetAllSkills().IndexOf(skill);
-                if (id != -1)
-                {
-                    skillIds.Add(id);
-                }
-                else
-                {
-                    Debug.LogError("Skill " + skill.name + " not found in SkillDatabase.");
-                }
-            }
-            return skillIds;
         }
     }
 }
