@@ -30,8 +30,8 @@ namespace DataModels
         public int Resistance;
         public int CriticalChance;
         
-        // for later: selected traits, applied effects (not the ones applied during combat), equipment, inventory, etc.
-        public string EquippedWeaponId; // runtime char should fetch the actual weapon data from the weapon db using this id on runtime.
+        public string EquippedWeaponId;
+        public List<string> InventoryItemIds = new();
         
         public CharacterData (CharacterSo so)
         {
@@ -42,7 +42,9 @@ namespace DataModels
             SpriteId = so.SpriteId;
             CurrentHp = so.CurrentHp; // start with base hp
             Attributes = so.Attributes;
-            //TODO: handle weapon id from so when weapon system is ready.
+
+            EquippedWeaponId = so.EquippedWeapon.ItemId;
+            InventoryItemIds = so.InventoryItems.ConvertAll(i => i.ItemId); // convert item objects to their ids for saving.
             
             CalculateDerivedStats();
         }

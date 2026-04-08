@@ -31,26 +31,10 @@ namespace DataModels
         public int CriticalChance;
         
         // for later: selected traits, applied effects (not the ones applied during combat), equipment, inventory, etc.
+        public ItemBase EquippedWeapon; // runtime char should fetch the actual weapon data from the weapon db using this id on runtime.
+        public List<ItemBase> InventoryItems = new(); // runtime char should fetch the actual item
         
-        public CharacterData ToCharacterData() => new()
-        {
-            Name        = Name,
-            Class       = Class,
-            Level       = Level,
-            Xp          = Xp,
-            SpriteId    = SpriteId,
-            CurrentHp   = CurrentHp,
-            SkillIds    = Skills.ConvertAll(s => s.SkillId), // convert skill objects to their ids for saving.
-            Attributes  = new Attributes
-            {
-                Strength     = Attributes.Strength,
-                Dexterity    = Attributes.Dexterity,
-                Agility      = Attributes.Agility,
-                Endurance    = Attributes.Endurance,
-                Intelligence = Attributes.Intelligence,
-                Willpower    = Attributes.Willpower,
-            }
-        };
+        public CharacterData ToCharacterData() => new(this);
 
         public void LoadFromSaveData(CharacterData data)
         {
@@ -60,8 +44,10 @@ namespace DataModels
             Xp         = data.Xp;
             SpriteId   = data.SpriteId;
             CurrentHp  = data.CurrentHp;
-            Skills = GameManager.Instance.SkillDb.GetSkillsByIds(data.SkillIds) ?? new List<SkillBase>(); // TODO: also add skills coming from equipped weapon and traits when those systems are ready.
+            Skills = GameManager.Instance.GetSkillDb().GetSkillsByIds(data.SkillIds) ?? new List<SkillBase>(); // TODO: also add skills coming from equipped weapon and traits when those systems are ready.
             Attributes = data.Attributes;
+            EquippedWeapon = GameManager.Instance.GetItemDb().GetItemById(data.EquippedWeaponId); 
+            InventoryItems = GameManager.Instance.GetItemDb().GetItemsByIds(data.InventoryItemIds) ?? new List<ItemBase>(); 
         }
     }
 }

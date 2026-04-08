@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f821d7df9c9376f45a33da33ffdf40b1, type: 3}
+  m_Name: Staff
+  m_EditorClassIdentifier: Assembly-CSharp::DataModels.ItemBase
+  itemName: Staff
+  description: ssssssss
+  icon: {fileID: 0}
+  ItemId: b926a063-6b39-4f13-86bc-625987b7c908
+  value: 11
+  weight: 3
+  stackSize: 0
+  itemType: 1
+  flags: 1
+  usesRemaining: -1
+  grantedSkills:
+  - {fileID: 11400000, guid: 887cea13aaf117a40b467ff10b3191c6, type: 2}
+  - {fileID: 11400000, guid: e1558752982c02c4f84142ddc0ac1f85, type: 2}
+  requirements:
+    eligibleClasses: 4
+    attributes: []
+    minLevel: 0

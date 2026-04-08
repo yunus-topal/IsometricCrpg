@@ -16,11 +16,13 @@ namespace InGameManagers
     {
         public static GameManager Instance { get; private set; }
         
-        [SerializeField] private CharacterSpriteDb CharacterSpriteDb; // assign in inspector, should be used to fetch sprites for characters on runtime.
-        public SkillDb SkillDb { get; private set; } // assign in inspector, should be used to fetch skills for characters on runtime.
-        // public get but private set for dbs
+        [SerializeField] private CharacterSpriteDb CharacterSpriteDb;
+        [SerializeField] private SkillDb SkillDb;
+        [SerializeField] private ItemDb ItemDb;
+
         public CharacterSpriteDb GetCharacterSpriteDb() => CharacterSpriteDb;
         public SkillDb GetSkillDb() => SkillDb;
+        public ItemDb GetItemDb() => ItemDb;
         
         
         public List<CharacterData> PlayerCharacters { get; private set; } = new List<CharacterData>();
