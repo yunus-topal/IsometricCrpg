@@ -1,3 +1,4 @@
+using DataModels;
 using UnityEngine;
 
 namespace InGameManagers
@@ -9,16 +10,15 @@ namespace InGameManagers
     /// </summary>
     public class CombatManager : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-        
-        }
+        // for testing purposes only. should be removed later and replaced with actual combat triggering logic.
+        [SerializeField] private CharacterSo[] PlayerCharacters;
+        [SerializeField] private CharacterSo[] EnemyCharacters;
 
-        // Update is called once per frame
-        void Update()
+        public void StartCombat()
         {
-        
+            
+            
+            
         }
     }
 }

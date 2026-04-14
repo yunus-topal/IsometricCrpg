@@ -25,7 +25,7 @@ namespace InGameManagers
         public ItemDb GetItemDb() => ItemDb;
         
         
-        public List<CharacterData> PlayerCharacters { get; private set; } = new List<CharacterData>();
+        public List<RuntimeCharData> PlayerCharacters { get; private set; } = new List<RuntimeCharData>();
         
         // TODO: trigger combat manager.
         public void StartCombat()
