@@ -9,8 +9,14 @@ namespace DataModels
 // ─────────────────────────────────────────────
     public enum TargetingMode
     {
+        SingleTarget,     // click a single target, ally or enemy
+        SingleTargetNoSelf, // like SingleTarget but can't target self
         SingleEnemy,      // click a target
         SingleAlly,
+        SingleAllyNoSelf, // like SingleAlly but can't target self
+        MultipleEnemies,   // click multiple targets, up to a max number
+        MultipleAllies,
+        MultipleAlliesNoSelf,
         Self,
         CircleFree,      // click a point on the ground, circle AoE around it
         CircleCasterCentred, // circle around caster, no target needed
@@ -95,7 +101,7 @@ namespace DataModels
 // ─────────────────────────────────────────────
 
     [System.Serializable]
-    public class TargetShapeData
+    public class TargetData
     {
         public ShapeType shape = ShapeType.Circle;
 
@@ -111,6 +117,10 @@ namespace DataModels
         [Tooltip("Half-angle in degrees for Cone.")]
         [Range(5f, 180f)]
         public float coneAngle = 45f;
+        
+        [Tooltip("Max number of targets that can be selected (for multiple-target modes).")]
+        [Range(1, 10)]
+        public int maxTargets = 1; 
 
         [Tooltip("Decal/projector material override. Leave null to use the default.")]
         public Material indicatorMaterialOverride;
@@ -163,7 +173,7 @@ namespace DataModels
         public float range = 6f;
 
         public TargetingMode targetingMode = TargetingMode.SingleEnemy;
-        public TargetShapeData shape;
+        public TargetData shape;
 
         [Header("Damage / Heal scaling")]
         [Tooltip("Min value before scaling (damage, heal amount, etc.).")]
