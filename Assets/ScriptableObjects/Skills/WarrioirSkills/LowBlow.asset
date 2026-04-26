@@ -13,18 +13,21 @@ MonoBehaviour:
   m_Name: LowBlow
   m_EditorClassIdentifier: Assembly-CSharp::DataModels.SkillSystem.SkillBase
   skillName: Low Blow
+  handlerKey: Warrior/LowBlow
+  SkillId: c981d8c2-571a-49ae-b8c8-60407e4b9954
   description: Warrior hits the enemy and stuns for a turn with 50% chance. if fails,
     slows for a turn instead.
   icon: {fileID: 21300000, guid: 272e62361a5339140a48f40acec07b59, type: 3}
   cooldown: 2
   range: 0
   targetingMode: 0
-  shape:
+  targetData:
     shape: 0
     radius: 2
     width: 2
     length: 5
     coneAngle: 45
+    maxTargets: 1
     indicatorMaterialOverride: {fileID: 0}
   minValue: 40
   maxValue: 50
@@ -33,5 +36,6 @@ MonoBehaviour:
     requiredLevel: 1
     requiredSkills: []
     requiredAttributes: []
+    prohibitedStatusEffects: 0
     eligibleWeapons: 7
   flavorText: 

@@ -215,9 +215,10 @@ namespace InGameManagers
     /// Single execution path for all allegiances.  TargetType is already
     /// resolved by the time we get here — either by the AI stub or by UIManager.
     /// </summary>
-    private void ExecuteSkill(Combatant user, SkillExecutable skill, List<Combatant> targets)
+    private void ExecuteSkill(Combatant user, SkillBase skill, List<Combatant> targets)
     {
         // TODO: check skill cooldown
+        // can also be don on the ui side.
         skill.Execute(user, targets);
 
         // Flush HP changes back to RuntimeCharData immediately

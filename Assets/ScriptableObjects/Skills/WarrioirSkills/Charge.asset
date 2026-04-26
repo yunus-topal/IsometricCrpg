@@ -13,18 +13,21 @@ MonoBehaviour:
   m_Name: Charge
   m_EditorClassIdentifier: Assembly-CSharp::DataModels.SkillSystem.SkillBase
   skillName: Charge
+  handlerKey: Warrior/Charge
+  SkillId: 6fb77a2d-9e10-4a02-a328-5f1a88cf8491
   description: Warrior charges in a direction until max range or an obstacle. Deals
     damage to all enemies on his path.
   icon: {fileID: 21300000, guid: 37813076ec2ac7649be98d7e844a50be, type: 3}
   cooldown: 2
   range: 6
   targetingMode: 6
-  shape:
+  targetData:
     shape: 0
     radius: 2
     width: 2
     length: 5
     coneAngle: 45
+    maxTargets: 1
     indicatorMaterialOverride: {fileID: 0}
   minValue: 20
   maxValue: 25
@@ -33,5 +36,6 @@ MonoBehaviour:
     requiredLevel: 1
     requiredSkills: []
     requiredAttributes: []
+    prohibitedStatusEffects: 0
     eligibleWeapons: -1
   flavorText: 

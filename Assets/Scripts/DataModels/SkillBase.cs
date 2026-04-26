@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using Attributes;
+using Databases;
 using Enums;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DataModels
 {
@@ -156,6 +159,8 @@ namespace DataModels
     {
         [Header("Identity")]
         public string skillName;
+        [SkillHandlerKey]
+        public string handlerKey;
         
         // hide id from editor since it's auto-generated and not meant to be edited by hand
         [HideInInspector]
@@ -173,7 +178,7 @@ namespace DataModels
         public float range = 6f;
 
         public TargetingMode targetingMode = TargetingMode.SingleEnemy;
-        public TargetData shape;
+        public TargetData targetData;
 
         [Header("Damage / Heal scaling")]
         [Tooltip("Min value before scaling (damage, heal amount, etc.).")]
@@ -195,6 +200,12 @@ namespace DataModels
 
         /// <summary>Returns true if the character meets all prerequisites.</summary>
         public bool CanLearn(RuntimeCharData charData) => prerequisites.CanLearn(charData);
+        
+        public void Execute(Combatant user, List<Combatant> targets)
+        {
+            var action = SkillDb.Get(skillName);
+            action?.Invoke(user, targets, this);
+        }
         
 #if UNITY_EDITOR
         private void OnValidate()

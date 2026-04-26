@@ -161,7 +161,7 @@ namespace NewGameMenu
                 Xp = 0,
                 SpriteId = _selectedPortraitId,
                 CurrentHp = 100, // should be equal to max hp which will be calculated by attributes, but for now just set it to 100.
-                Attributes = new Attributes
+                Attributes = new DataModels.Attributes
                 {
                     Strength = strengthPicker.CurrentIntValue,
                     Dexterity = dexterityPicker.CurrentIntValue,

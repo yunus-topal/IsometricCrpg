@@ -3,6 +3,7 @@ using System.Linq;
 using DataModels;
 using Enums;
 using UnityEngine;
+using SkillExecutables;
 
 namespace Databases
 {
@@ -12,6 +13,25 @@ namespace Databases
         public List<SkillBase> Skills = new List<SkillBase>();
         
         private Dictionary<string, SkillBase> _skillsDict = new();
+        
+        // for matching execution skills.
+        public delegate void SkillAction(Combatant user, List<Combatant> targets, SkillBase skillBase);
+        private static readonly Dictionary<string, SkillAction> _registry = new()
+        {
+            // Warrior skills
+            [nameof(WarriorExecutables.BattleCry)]   = WarriorExecutables.BattleCry,
+            [nameof(WarriorExecutables.Charge)]      = WarriorExecutables.Charge,
+            [nameof(WarriorExecutables.LowBlow)]     = WarriorExecutables.LowBlow,
+        };
+        
+        public static SkillAction Get(string skillName)
+        {
+            if (_registry.TryGetValue(skillName, out var action))
+                return action;
+
+            Debug.LogWarning($"[SkillLibrary] No skill registered for '{skillName}'");
+            return null;
+        }
         
         private void OnEnable()
         {
