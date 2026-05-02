@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Enums;
+using Utils;
 
 namespace DataModels
 {
@@ -16,10 +17,10 @@ namespace DataModels
         // base data for character, should be saved and loaded from save file.
         public string Name;
         public CharacterClass Class;
-        public int Level;
-        public int Xp;
+        public BindableProperty<int> Level = new (1);
+        public BindableProperty<int> Xp = new();
         public int SpriteId; // fetch from sprite db load on runtime.
-        public int CurrentHp;
+        public BindableProperty<int> CurrentHp = new();
         public List<string> SkillIds = new();
         public Attributes Attributes = new(); // fetch from skill db load on runtime.
         
@@ -37,10 +38,10 @@ namespace DataModels
         {
             Name = so.Name;
             Class = so.Class;
-            Level = 1; // start at level 1
-            Xp = 0; // start with 0 xp
+            Level = new(so.Level);
+            Xp = new(so.Xp);
             SpriteId = so.SpriteId;
-            CurrentHp = so.CurrentHp; // start with base hp
+            CurrentHp = new(so.CurrentHp); // start with base hp
             Attributes = so.Attributes;
 
             EquippedWeaponId = so.EquippedWeapon.ItemId;

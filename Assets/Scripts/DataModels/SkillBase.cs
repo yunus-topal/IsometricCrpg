@@ -70,7 +70,7 @@ namespace DataModels
             if ((eligibleClasses & characterFlag) == 0)
                 return false;
 
-            if (charData.Level < requiredLevel)
+            if (charData.Level.Value < requiredLevel)
                 return false;
 
             foreach (var skill in requiredSkills)

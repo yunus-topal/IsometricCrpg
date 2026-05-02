@@ -16,16 +16,36 @@ namespace InGameManagers
     {
         public static GameManager Instance { get; private set; }
         
+        #region Databases 
+        
         [SerializeField] private CharacterSpriteDb CharacterSpriteDb;
         [SerializeField] private SkillDb SkillDb;
         [SerializeField] private ItemDb ItemDb;
+        [SerializeField] private StatusEffectDb StatusEffectDb;
 
         public CharacterSpriteDb GetCharacterSpriteDb() => CharacterSpriteDb;
         public SkillDb GetSkillDb() => SkillDb;
         public ItemDb GetItemDb() => ItemDb;
+        public StatusEffectDb GetStatusEffectDb() => StatusEffectDb;
         
+        #endregion
         
         public List<RuntimeCharData> PlayerCharacters { get; private set; } = new List<RuntimeCharData>();
+        
+        private void Awake()
+        {
+            // Check if an instance already exists to prevent duplicates
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this.gameObject);
+                return;
+            }
+
+            Instance = this;
+        
+            // Optional: Keep the manager alive across different scenes
+            // DontDestroyOnLoad(this.gameObject);
+        }
         
         // TODO: trigger combat manager.
         public void StartCombat()

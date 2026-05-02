@@ -18,14 +18,14 @@ namespace DataModels
         // Convenience shortcut — never duplicate, always delegate
         public string Name => RuntimeData.Name;
         public Attributes Attributes => RuntimeData.Attributes;
+        public BindableProperty<int> CurrentHp => RuntimeData.CurrentHp;
 
         // ── Combat-context state (transient, lives only during combat) ────────
         public Allegiance Allegiance { get; private set; }
 
-        public int CurrentHp { get; set; }
         public float Initiative { get; private set; }
 
-        public bool IsAlive => CurrentHp > 0;
+        public bool IsAlive => CurrentHp.Value > 0;
         public bool HasActed { get; set; } // reset each round
 
         public List<StatusEffectInstance> ActiveStatusEffects { get; } = new();
@@ -35,9 +35,6 @@ namespace DataModels
         {
             RuntimeData = runtimeData;
             Allegiance = allegiance;
-
-            // Snapshot HP/MP from runtime data at combat start
-            CurrentHp = RuntimeData.CurrentHp;
         }
 
         // ── Initiative ────────────────────────────────────────────────────────
@@ -80,15 +77,6 @@ namespace DataModels
                     ActiveStatusEffects.RemoveAt(i);
                 }
             }
-        }
-
-        /// <summary>
-        /// Flush combat-only state back to RuntimeCharData so changes persist
-        /// after combat ends.
-        /// </summary>
-        public void FlushToRuntimeData()
-        {
-            RuntimeData.CurrentHp = CurrentHp;
         }
     }
 

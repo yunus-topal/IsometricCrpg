@@ -63,7 +63,7 @@ namespace DataModels
                         return false;
             }
 
-            if (character.Level < minLevel)
+            if (character.Level.Value < minLevel)
                 return false;
 
             return true;

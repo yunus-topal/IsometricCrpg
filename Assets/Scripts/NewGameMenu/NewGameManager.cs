@@ -157,10 +157,10 @@ namespace NewGameMenu
             {
                 Name = nameInputField.text,
                 Class = _selectedClass,
-                Level = 1,
-                Xp = 0,
+                Level = new(1),
+                Xp = new(0),
                 SpriteId = _selectedPortraitId,
-                CurrentHp = 100, // should be equal to max hp which will be calculated by attributes, but for now just set it to 100.
+                CurrentHp = new(100), // TODO: should be equal to max hp which will be calculated by attributes, but for now just set it to 100.
                 Attributes = new DataModels.Attributes
                 {
                     Strength = strengthPicker.CurrentIntValue,

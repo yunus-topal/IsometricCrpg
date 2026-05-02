@@ -40,10 +40,10 @@ namespace DataModels
         {
             Name       = data.Name;
             Class      = data.Class;
-            Level      = data.Level;
-            Xp         = data.Xp;
+            Level      = data.Level.Value;
+            Xp         = data.Xp.Value;
             SpriteId   = data.SpriteId;
-            CurrentHp  = data.CurrentHp;
+            CurrentHp  = data.CurrentHp.Value;
             Skills = GameManager.Instance.GetSkillDb().GetSkillsByIds(data.SkillIds) ?? new List<SkillBase>(); // TODO: also add skills coming from equipped weapon and traits when those systems are ready.
             Attributes = data.Attributes;
             EquippedWeapon = GameManager.Instance.GetItemDb().GetItemById(data.EquippedWeaponId); 

@@ -18,8 +18,8 @@ namespace InGameManagers
     {
     // ── External dependencies ─────────────────────────────────────────────
     [Tooltip("Dependent Managers.")]
-    [SerializeField] private GameManager   gameManager;
-    [SerializeField] private UIManager     uiManager;
+    private GameManager   gameManager;
+    private UIManager     uiManager;
     
     [Tooltip("Combat settings.")]
     [SerializeField] private float AiTurnDelay = 1.0f; // seconds to wait before enemy acts, for readability
@@ -35,6 +35,13 @@ namespace InGameManagers
     public event Action<Combatant>        OnTurnEnded;
     public event Action<List<Combatant>>  OnCombatStarted;
     public event Action<Allegiance>       OnCombatEnded;   // winner side
+
+    private void Start()
+    {
+        gameManager = GetComponent<GameManager>();
+        uiManager = GetComponent<UIManager>();
+    }
+
 
     // ─────────────────────────────────────────────────────────────────────
     // 1. START COMBAT
@@ -220,12 +227,6 @@ namespace InGameManagers
         // TODO: check skill cooldown
         // can also be don on the ui side.
         skill.Execute(user, targets);
-
-        // Flush HP changes back to RuntimeCharData immediately
-        // so the rest of the game sees up-to-date values.
-        foreach (var t in targets)
-            t.FlushToRuntimeData();
-        user.FlushToRuntimeData();
     }
 
     // ─────────────────────────────────────────────────────────────────────
@@ -256,10 +257,6 @@ namespace InGameManagers
     private void EndCombat(Allegiance winner)
     {
         _combatActive = false;
-
-        // Flush all combatants' state back to RuntimeCharData
-        foreach (var c in _turnOrder)
-            c.FlushToRuntimeData();
 
         Debug.Log($"[CombatManager] Combat ended. Winner: {winner}");
         OnCombatEnded?.Invoke(winner);
