@@ -25,7 +25,7 @@ namespace DataModels
         public Attributes Attributes = new(); // fetch from skill db load on runtime.
         
         // additional data that should be generated on runtime, not saved to save file using base data.
-        public int MaxHp;
+        public BindableProperty<int> MaxHp;
         public int Accuracy;
         public int Evasion;
         public int Resistance;
