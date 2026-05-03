@@ -24,14 +24,7 @@ namespace DataModels
         public List<string> SkillIds = new();
         public Attributes Attributes = new(); // fetch from skill db load on runtime.
         
-        // additional data that should be generated on runtime, not saved to save file using base data.
-        public BindableProperty<int> MaxHp;
-        public int Accuracy;
-        public int Evasion;
-        public int Resistance;
-        public int CriticalChance;
-        
-        public List<EquipmentData> equipments = new();
+        public List<EquipmentData> EquipmentDatas = new();
         public List<string> InventoryItemIds = new();
         
         public CharacterData (CharacterSo so)
@@ -44,10 +37,9 @@ namespace DataModels
             CurrentHp = new(so.CurrentHp); // start with base hp
             Attributes = so.Attributes;
 
-            equipments = so.Equipments.ConvertAll(e => new EquipmentData(e.item.ItemId, e.slot, e.canUnequip)); // convert item objects to their ids for saving.
+            SkillIds = so.Skills.ConvertAll(s => s.SkillId); // convert skill objects to their ids for saving.
+            EquipmentDatas = so.Equipments.ConvertAll(e => new EquipmentData(e.item.ItemId, e.slot, e.canUnequip)); // convert item objects to their ids for saving.
             InventoryItemIds = so.InventoryItems.ConvertAll(i => i.ItemId); // convert item objects to their ids for saving.
-            
-            CalculateDerivedStats();
         }
 
         // for deserialization
@@ -55,27 +47,11 @@ namespace DataModels
         {
         }
 
-        public void CalculateDerivedStats()
+        public override string ToString()
         {
-            Accuracy = 100; // keep it %100 for now.
-            Evasion = GlobalConstants.baseEvasion + GetAttributeModifier(Attributes.Agility); // base evasion + dexterity bonus
-            Resistance = Math.Max(0, GlobalConstants.baseEnduranceMultiplier * GetAttributeModifier(Attributes.Endurance)); // for now, just use endurance as resistance.
-            CriticalChance = GlobalConstants.baseCritChance;
-        }
-
-        public int GetAttributeModifier(int attributeValue)
-        {
-            return attributeValue switch
-            {
-                // brackets for -3, -2, -1, 0, +1, +2, +3 modifiers based on attribute value.
-                < 3 => -3,
-                < 6 => -2,
-                < 9 => -1,
-                < 12 => 0,
-                < 15 => 1,
-                < 18 => 2,
-                _ => 3
-            };
+            // write all fields in a readable format for debugging.
+            return $"Name: {Name}, \nClass: {Class}, \nLevel: {Level.Value}, \nXp: {Xp.Value}, \nSpriteId: {SpriteId}, \nCurrentHp: {CurrentHp.Value}, " +
+                   $"\nAttributes: [{Attributes}], \nSkillIds: [{string.Join(", ", SkillIds)}], \nEquipments: [{string.Join(", ", EquipmentDatas)}], \nInventoryItems: [{string.Join(", ", InventoryItemIds)}]";
         }
     }
     
@@ -116,6 +92,11 @@ namespace DataModels
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
         }
+
+        public override string ToString()
+        {
+            return $"STR: {Strength}, DEX: {Dexterity}, AGI: {Agility}, END: {Endurance}, INT: {Intelligence}, WIL: {Willpower}";
+        }
     }
 
     [System.Serializable]
@@ -133,6 +114,11 @@ namespace DataModels
             this.itemId = itemId;
             this.slot = slot;
             this.canUnequip = canUnequip;
+        }
+
+        public override string ToString()
+        {
+            return $"\nItemId: {itemId}, Slot: {slot}, CanUnequip: {canUnequip}";
         }
     }
 }

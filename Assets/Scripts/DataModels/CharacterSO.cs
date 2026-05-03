@@ -14,6 +14,8 @@ namespace DataModels
     [CreateAssetMenu(fileName = "Character", menuName = "RPG/Character")]
     public class CharacterSo : ScriptableObject
     {
+        #region Base Data
+        
         public string Name;
         public CharacterClass Class;
         public int Level;
@@ -22,18 +24,11 @@ namespace DataModels
         public int CurrentHp;
         public List<SkillBase> Skills = new();
         public Attributes Attributes = new();
-                
-        // additional data that should be generated on runtime, not saved to save file using base data.
-        public int MaxHp;
-        public int Accuracy;
-        public int Evasion;
-        public int Resistance;
-        public int CriticalChance;
-        
-        // for later: selected traits, applied effects (not the ones applied during combat), equipment, inventory, etc.
-        public List<RuntimeEquipmentData> Equipments; // runtime char should fetch the actual weapon data from the weapon db using this id on runtime.
-        public List<ItemBase> InventoryItems = new(); // runtime char should fetch the actual item
-        
+        public List<RuntimeEquipmentData> Equipments = new (); 
+        public List<ItemBase> InventoryItems = new(); 
+
+        #endregion
+
         public CharacterData ToCharacterData() => new(this);
 
         public void LoadFromSaveData(CharacterData data)
@@ -46,8 +41,15 @@ namespace DataModels
             CurrentHp  = data.CurrentHp.Value;
             Skills = GameManager.Instance.GetSkillDb().GetSkillsByIds(data.SkillIds) ?? new List<SkillBase>(); 
             Attributes = data.Attributes;
-            Equipments = data.equipments.ConvertAll(e => new RuntimeEquipmentData(GameManager.Instance.GetItemDb().GetItemById(e.itemId), e.slot, e.canUnequip));
+            Equipments = data.EquipmentDatas.ConvertAll(e => new RuntimeEquipmentData(GameManager.Instance.GetItemDb().GetItemById(e.itemId), e.slot, e.canUnequip));
             InventoryItems = GameManager.Instance.GetItemDb().GetItemsByIds(data.InventoryItemIds) ?? new List<ItemBase>(); 
+        }
+
+        public override string ToString()
+        {
+            return $"Name: {Name}, \nClass: {Class}, \nLevel: {Level}, \nXp: {Xp}, \nSpriteId: {SpriteId}, \nCurrentHp: {CurrentHp}, " +
+                   $"\nSkills: [{string.Join(", ", Skills)}], \nAttributes: {Attributes}, " +
+                   $"\nEquipments: [{string.Join(", ", Equipments)}], \nInventoryItems: [{string.Join(", ", InventoryItems)}]";
         }
     }
 }

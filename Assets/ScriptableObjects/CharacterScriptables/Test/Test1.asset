@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9735fb489614712bd4d2fcc6792bc48, type: 3}
-  m_Name: Mage
+  m_Name: Test1
   m_EditorClassIdentifier: Assembly-CSharp::DataModels.CharacterSo
   Name: 
   Class: 2
@@ -18,7 +18,10 @@ MonoBehaviour:
   Xp: 0
   SpriteId: 0
   CurrentHp: 0
-  Skills: []
+  Skills:
+  - {fileID: 11400000, guid: 62abec09f16982c4dbb4c3b244eaebcc, type: 2}
+  - {fileID: 11400000, guid: 43c5b1ed76f22de41aa7230204731957, type: 2}
+  - {fileID: 11400000, guid: d9ffad9054f57104fb931a7e2d091f91, type: 2}
   Attributes:
     Strength: 7
     Dexterity: 8
@@ -31,5 +34,8 @@ MonoBehaviour:
   Evasion: 0
   Resistance: 0
   CriticalChance: 0
-  Equipments: []
+  Equipments:
+  - item: {fileID: 11400000, guid: 4e1ad9ec8bb39d04088a4baa19cad88b, type: 2}
+    slot: 1
+    canUnequip: 0
   InventoryItems: []

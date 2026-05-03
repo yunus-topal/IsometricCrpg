@@ -9,7 +9,7 @@ namespace UI
     public class CharacterMainUI : MonoBehaviour
     {
         [SerializeField] private Image characterImage;
-        [SerializeField] private TextMeshPro characterHealthText;
+        [SerializeField] private TextMeshProUGUI characterHealthText;
         [SerializeField] private Slider characterHealthSlider;
 
         [SerializeField] private Transform equipmentSkills;
@@ -27,23 +27,50 @@ namespace UI
                 RemoveListeners(_charData);
             }
             _charData = charData;
-            _charData!.CurrentHp.OnValueChanged += OnHealthChanged;
+            _charData!.CharacterData.CurrentHp.OnValueChanged += OnHealthChanged;
             _charData!.MaxHp.OnValueChanged += OnHealthChanged;
-            OnHealthChanged(_charData.CurrentHp.Value);
+            OnHealthChanged(_charData.CharacterData.CurrentHp.Value);
 
             characterImage.sprite = _charData.Sprite;
-            // TODO: setup skills
+            SetupSkills();
+        }
+
+        private void SetupSkills()
+        {
+            if (_charData == null)
+            {
+                Debug.LogError("[CharacterMainUI] needs to be initialized");
+                return; 
+            }
+            // setup class skills
+            foreach (var skill in _charData.Skills)
+            {
+                var skillUI = Instantiate(skillUIPrefab, classSkills).GetComponent<SkillUI>();
+                skillUI.Initialize(skill);
+            }
+            
+            // setup equipment skills
+            foreach (var equipment in _charData.Equipments)
+            {
+                foreach (var skill in equipment.item.grantedSkills)
+                {
+                    var skillUI = Instantiate(skillUIPrefab, equipmentSkills).GetComponent<SkillUI>();
+                    skillUI.Initialize(skill);
+                }
+            }
+            
+            // todo: setup inventory skills.
         }
 
         private void RemoveListeners(RuntimeCharData charData)
         {
-            charData.CurrentHp.OnValueChanged -= OnHealthChanged;
+            charData.CharacterData.CurrentHp.OnValueChanged -= OnHealthChanged;
         }
 
 
         private void OnHealthChanged(int _)
         {
-            int? currentHp = _charData?.CurrentHp.Value;
+            int? currentHp = _charData?.CharacterData.CurrentHp.Value;
             int? maxHp = _charData?.MaxHp.Value;
             if (maxHp == null || currentHp == null)
             {

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Databases
 {
     [CreateAssetMenu(menuName = "Database/StatusEffects")]
-    public class StatusEffectDb : ScriptableObject
+    public class StatusEffectDb : DatabaseBase
     {
         public List<StatusEffectBase> StatusEffects = new List<StatusEffectBase>();
         
@@ -14,9 +14,13 @@ namespace Databases
         
         private void OnEnable()
         {
+            _statusEffectsDict.Clear();
+            
             _statusEffectsDict = StatusEffects
                 .Where(s => s != null && !string.IsNullOrEmpty(s.statusEffectId))
                 .ToDictionary(s => s.statusEffectName);
+            
+            Debug.Log($"[StatusEffectDb] Loaded {_statusEffectsDict.Count} status effects into the database.");
         }
         
         public List<StatusEffectBase> GetAllStatusEffects()

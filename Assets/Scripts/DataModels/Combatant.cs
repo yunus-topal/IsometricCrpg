@@ -16,9 +16,9 @@ namespace DataModels
         public RuntimeCharData RuntimeData { get; private set; }
 
         // Convenience shortcut — never duplicate, always delegate
-        public string Name => RuntimeData.Name;
-        public Attributes Attributes => RuntimeData.Attributes;
-        public BindableProperty<int> CurrentHp => RuntimeData.CurrentHp;
+        public string Name => RuntimeData.CharacterData.Name;
+        public Attributes Attributes => RuntimeData.CharacterData.Attributes;
+        public BindableProperty<int> CurrentHp => RuntimeData.CharacterData.CurrentHp;
 
         // ── Combat-context state (transient, lives only during combat) ────────
         public Allegiance Allegiance { get; private set; }

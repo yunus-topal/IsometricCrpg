@@ -31,18 +31,18 @@ namespace DataModels
 
         public bool MeetRequirements(RuntimeCharData character)
         {
-            CharacterClassFlags characterFlag = (CharacterClassFlags)(1 << (int)character.Class);
+            CharacterClassFlags characterFlag = (CharacterClassFlags)(1 << (int)character.CharacterData.Class);
             if ((eligibleClasses & characterFlag) == 0)
                 return false;
 
             if (attributes is { Count: > 0 })
             {
                 foreach (var req in attributes)
-                    if (character.Attributes.GetAttribute(req.stat) < req.minValue)
+                    if (character.CharacterData.Attributes.GetAttribute(req.stat) < req.minValue)
                         return false;
             }
 
-            if (character.Level.Value < minLevel)
+            if (character.CharacterData.Level.Value < minLevel)
                 return false;
 
             return true;
@@ -88,7 +88,6 @@ namespace DataModels
         [Header("Classification")]
         public ItemType  itemType;
         public ItemFlags flags;
-        public EquipmentSlot equipmentSlot; // only relevant if Equippable flag is set. determines which slot the item can be equipped to.
         public bool IsTwoHanded = false; // only relevant for weapons. if true, the item occupies both weapon slots when equipped.
 
         // ── Uses ─────────────────────────────────────────────────────────────────

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Databases
 {
     [CreateAssetMenu(menuName = "Database/Items")]
-    public class ItemDb : ScriptableObject
+    public class ItemDb : DatabaseBase
     {
         public Sprite placeholder;
         public List<ItemBase> Items = new List<ItemBase>();
@@ -15,22 +15,19 @@ namespace Databases
         
         private void OnEnable()
         {
-            // check if sprite is empty and assign placeholder
+            _itemsDict.Clear();
             foreach (var item in Items)
             {
-                if (item != null)
-                {
-                    if (item.icon == null)
-                    {
-                        item.icon = placeholder;
-                    }
-                    
-                    if (string.IsNullOrEmpty(item.ItemId))
-                    {
-                        Debug.LogError($"Item '{item.itemName}' is missing an ItemId. Please assign a unique ItemId.");
-                    }
-                }
+                if (item == null) continue;
+                if (item.icon == null) item.icon = placeholder;
+        
+                if (string.IsNullOrEmpty(item.ItemId))
+                    Debug.LogError($"Item '{item.itemName}' is missing an ItemId.");
+                else
+                    _itemsDict[item.ItemId] = item;
             }
+            
+            Debug.Log($"[ItemDb] Loaded {_itemsDict.Count} items into the database.");
         }
         
         public List<ItemBase> GetAllItems()

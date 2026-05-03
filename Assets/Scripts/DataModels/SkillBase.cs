@@ -66,11 +66,11 @@ namespace DataModels
         public bool CanLearn(RuntimeCharData charData)
         {
             // Convert the plain enum to its flag equivalent by name
-            CharacterClassFlags characterFlag = (CharacterClassFlags)(1 << (int)charData.Class);
+            CharacterClassFlags characterFlag = (CharacterClassFlags)(1 << (int)charData.CharacterData.Class);
             if ((eligibleClasses & characterFlag) == 0)
                 return false;
 
-            if (charData.Level.Value < requiredLevel)
+            if (charData.CharacterData.Level.Value < requiredLevel)
                 return false;
 
             foreach (var skill in requiredSkills)
@@ -78,7 +78,7 @@ namespace DataModels
                     return false;
 
             foreach (var attr in requiredAttributes)
-                if (charData.Attributes.GetAttribute(attr.stat) < attr.minValue)
+                if (charData.CharacterData.Attributes.GetAttribute(attr.stat) < attr.minValue)
                     return false;
                 
             return true;

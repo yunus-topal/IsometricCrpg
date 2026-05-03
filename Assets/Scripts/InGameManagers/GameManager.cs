@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Databases;
 using DataModels;
+using UI;
 using UnityEngine;
 
 namespace InGameManagers
@@ -29,8 +31,15 @@ namespace InGameManagers
         public StatusEffectDb GetStatusEffectDb() => StatusEffectDb;
         
         #endregion
+
+        #region Scene References
+
+            [SerializeField] private CharacterMainUI characterMainUI;
+        #endregion
         
         public List<RuntimeCharData> PlayerCharacters { get; private set; } = new List<RuntimeCharData>();
+        
+        [SerializeField] private CharacterSo testCharSo; // for testing, should be removed later.
         
         private void Awake()
         {
@@ -46,7 +55,12 @@ namespace InGameManagers
             // Optional: Keep the manager alive across different scenes
             // DontDestroyOnLoad(this.gameObject);
         }
-        
+
+        private void Start()
+        {
+            characterMainUI.Initialize(new RuntimeCharData(testCharSo.ToCharacterData()));
+        }
+
         // TODO: trigger combat manager.
         public void StartCombat()
         {

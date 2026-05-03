@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Databases.ItemDb
   placeholder: {fileID: 7482667652216324306, guid: b861f971fba581744b644d881a8f5a34, type: 3}
   Items:
-  - {fileID: 11400000, guid: 513cf27a00400e448922aafb107cc21c, type: 2}
-  - {fileID: 11400000, guid: c4c2398569292fc4ba150ddb62295697, type: 2}
-  - {fileID: 11400000, guid: f7c793b9ee9d32740b80fc3da761c534, type: 2}
-  - {fileID: 11400000, guid: 697a538ed6233fd4784b24597d5016b5, type: 2}
+  - {fileID: 11400000, guid: 4e1ad9ec8bb39d04088a4baa19cad88b, type: 2}
+  - {fileID: 11400000, guid: 6f764954ce18f3c4f9f2177f932f4756, type: 2}
+  - {fileID: 11400000, guid: a80743aef0a2f9a48a0164708a4b0f06, type: 2}

@@ -8,7 +8,7 @@ using SkillExecutables;
 namespace Databases
 {
     [CreateAssetMenu(menuName = "Database/Skills")]
-    public class SkillDb : ScriptableObject
+    public class SkillDb : DatabaseBase
     {
         public List<SkillBase> Skills = new List<SkillBase>();
         
@@ -35,9 +35,12 @@ namespace Databases
         
         private void OnEnable()
         {
+            _skillsDict.Clear();
             _skillsDict = Skills
                 .Where(s => s != null && !string.IsNullOrEmpty(s.SkillId))
                 .ToDictionary(s => s.SkillId);
+            
+            Debug.Log($"[SkillDb] Loaded {_skillsDict.Count} skills into the database.");
         }
         
         public List<SkillBase> GetAllSkills()

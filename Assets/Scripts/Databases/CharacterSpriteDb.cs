@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Databases
 {
     [CreateAssetMenu(menuName = "Database/Character Sprites")]
-    public sealed class CharacterSpriteDb : ScriptableObject
+    public sealed class CharacterSpriteDb : DatabaseBase
     {
         public Sprite emptySprite; // use this as a placeholder for missing sprites, should be handled on runtime to avoid null reference exception.
         public List<Sprite> Sprites = new List<Sprite>();
