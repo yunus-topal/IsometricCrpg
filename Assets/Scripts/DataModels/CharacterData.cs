@@ -31,7 +31,7 @@ namespace DataModels
         public int Resistance;
         public int CriticalChance;
         
-        public string EquippedWeaponId;
+        public List<EquipmentData> equipments = new();
         public List<string> InventoryItemIds = new();
         
         public CharacterData (CharacterSo so)
@@ -44,7 +44,7 @@ namespace DataModels
             CurrentHp = new(so.CurrentHp); // start with base hp
             Attributes = so.Attributes;
 
-            EquippedWeaponId = so.EquippedWeapon.ItemId;
+            equipments = so.Equipments.ConvertAll(e => new EquipmentData(e.item.ItemId, e.slot, e.canUnequip)); // convert item objects to their ids for saving.
             InventoryItemIds = so.InventoryItems.ConvertAll(i => i.ItemId); // convert item objects to their ids for saving.
             
             CalculateDerivedStats();
@@ -115,6 +115,24 @@ namespace DataModels
                 AttributeType.Willpower => Willpower,
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
+        }
+    }
+
+    [System.Serializable]
+    public class EquipmentData
+    {
+        public string itemId;
+        public EquipmentSlot slot;
+        public bool canUnequip; // for some special items that cannot be unequipped, e.g. cursed items, quest items, etc.
+        
+        // for deserialization
+        public EquipmentData(){}
+        
+        public EquipmentData(string itemId, EquipmentSlot slot, bool canUnequip = true)
+        {
+            this.itemId = itemId;
+            this.slot = slot;
+            this.canUnequip = canUnequip;
         }
     }
 }

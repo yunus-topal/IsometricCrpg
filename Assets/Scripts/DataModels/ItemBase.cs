@@ -17,27 +17,6 @@ namespace DataModels
         QuestItem   = 1 << 3,  // cannot be dropped or sold
     }
 
-    // ─── Item type ───────────────────────────────────────────────────────────────
-
-    public enum ItemType
-    {
-        None,
-        Weapon,
-        Shield,
-        Helmet,
-        Armor,
-        Gauntlet,
-        Boots,
-        Potion,
-        Grenade,
-        Scroll,
-        Food,
-        QuestItem,
-        Valuable,
-        Book,
-        Misc,
-    }
-
     [Serializable]
     public struct ItemRequirements
     {
@@ -109,6 +88,8 @@ namespace DataModels
         [Header("Classification")]
         public ItemType  itemType;
         public ItemFlags flags;
+        public EquipmentSlot equipmentSlot; // only relevant if Equippable flag is set. determines which slot the item can be equipped to.
+        public bool IsTwoHanded = false; // only relevant for weapons. if true, the item occupies both weapon slots when equipped.
 
         // ── Uses ─────────────────────────────────────────────────────────────────
 

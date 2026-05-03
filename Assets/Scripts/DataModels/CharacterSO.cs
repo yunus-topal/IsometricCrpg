@@ -31,7 +31,7 @@ namespace DataModels
         public int CriticalChance;
         
         // for later: selected traits, applied effects (not the ones applied during combat), equipment, inventory, etc.
-        public ItemBase EquippedWeapon; // runtime char should fetch the actual weapon data from the weapon db using this id on runtime.
+        public List<RuntimeEquipmentData> Equipments; // runtime char should fetch the actual weapon data from the weapon db using this id on runtime.
         public List<ItemBase> InventoryItems = new(); // runtime char should fetch the actual item
         
         public CharacterData ToCharacterData() => new(this);
@@ -44,9 +44,9 @@ namespace DataModels
             Xp         = data.Xp.Value;
             SpriteId   = data.SpriteId;
             CurrentHp  = data.CurrentHp.Value;
-            Skills = GameManager.Instance.GetSkillDb().GetSkillsByIds(data.SkillIds) ?? new List<SkillBase>(); // TODO: also add skills coming from equipped weapon and traits when those systems are ready.
+            Skills = GameManager.Instance.GetSkillDb().GetSkillsByIds(data.SkillIds) ?? new List<SkillBase>(); 
             Attributes = data.Attributes;
-            EquippedWeapon = GameManager.Instance.GetItemDb().GetItemById(data.EquippedWeaponId); 
+            Equipments = data.equipments.ConvertAll(e => new RuntimeEquipmentData(GameManager.Instance.GetItemDb().GetItemById(e.itemId), e.slot, e.canUnequip));
             InventoryItems = GameManager.Instance.GetItemDb().GetItemsByIds(data.InventoryItemIds) ?? new List<ItemBase>(); 
         }
     }

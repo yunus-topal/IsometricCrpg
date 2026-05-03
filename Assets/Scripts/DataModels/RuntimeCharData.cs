@@ -8,8 +8,8 @@ namespace DataModels
     public class RuntimeCharData : CharacterData
     {
         public Sprite Sprite; // fetch from sprite db load on runtime.
-        public List<SkillBase> Skills = new(); // TODO: convert to Skill object once it finalized.
-        public ItemBase EquippedWeapon; 
+        public List<SkillBase> Skills = new();
+        public List<RuntimeEquipmentData> Equipments = new();
         public List<ItemBase> InventoryItems = new();
         
         // TODO: keep track of selected traits, applied effects (not the ones applied during combat), equipment, inventory, etc.
@@ -27,11 +27,27 @@ namespace DataModels
             CurrentHp = data.CurrentHp;
             Attributes = data.Attributes;
             
-            Skills = GameManager.Instance.GetSkillDb().GetSkillsByIds(base.SkillIds); // TODO: also add skills coming from equipped weapon and traits when those systems are ready.
-            EquippedWeapon = GameManager.Instance.GetItemDb().GetItemById(data.EquippedWeaponId); 
+            Skills = GameManager.Instance.GetSkillDb().GetSkillsByIds(base.SkillIds);
+            Equipments = equipments.ConvertAll(c => new RuntimeEquipmentData(GameManager.Instance.GetItemDb().GetItemById(c.itemId), c.slot, c.canUnequip));
             InventoryItems = GameManager.Instance.GetItemDb().GetItemsByIds(data.InventoryItemIds) ?? new List<ItemBase>();
             
             CalculateDerivedStats();
         }
+    }
+    
+    public class RuntimeEquipmentData
+    {
+        public ItemBase item;
+        public EquipmentSlot slot;
+        public bool canUnequip; // for some special items that cannot be unequipped, e.g. cursed items, quest items, etc.
+        
+        public RuntimeEquipmentData(ItemBase item, EquipmentSlot slot, bool canUnequip = true)
+        {
+            this.item = item;
+            this.slot = slot;
+            this.canUnequip = canUnequip;
+        }
+        
+        public EquipmentData ToEquipmentData() => new(item.ItemId, slot, canUnequip);
     }
 }
