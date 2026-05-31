@@ -8,7 +8,6 @@ namespace DataModels
         None,               // can't stack, always 1 turn.
         Refresh,            // can't stack, but reapplying refreshes duration.
         Duration,           // one instance, stacks just extend duration
-        MultiInstance,      // multiple instances, each tracked separately
     }
     
     public enum RestrictionType
@@ -19,6 +18,7 @@ namespace DataModels
         Silenced,           // can't use skills, but can still basic attack and items
         Disarmed,           // can't use weapon-based skills, but can still use unarmed skills and items
         Slowed,             // reduced movement speed, but can still act normally otherwise
+        Blinded,             // reduced accuracy and evasion, but can still act normally otherwise
     }
     
     [System.Flags]

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Attributes;
 using Databases;
@@ -10,24 +11,13 @@ namespace DataModels
     // ─────────────────────────────────────────────
 //  Enums shared across the skill system
 // ─────────────────────────────────────────────
-    public enum TargetingMode
+    [Flags]
+    public enum ValidTargets
     {
-        SingleTarget,     // click a single target, ally or enemy
-        SingleTargetNoSelf, // like SingleTarget but can't target self
-        SingleEnemy,      // click a target
-        SingleAlly,
-        SingleAllyNoSelf, // like SingleAlly but can't target self
-        MultipleEnemies,   // click multiple targets, up to a max number
-        MultipleAllies,
-        MultipleAlliesNoSelf,
-        Self,
-        CircleFree,      // click a point on the ground, circle AoE around it
-        CircleCasterCentred, // circle around caster, no target needed
-        RectangleFromCaster, // rectangle extending from caster, no target needed
-        ConeFromCaster,  // aims in caster direction
-        LineFromCaster,  // thin laser-style line
-        Cross,            // + shaped, caster-centred
-        Global            // no targeting needed
+        Self, // can target self
+        Enemy, 
+        Ally,
+        Free
     }
 
     public enum ShapeType { Circle, Rectangle, Cone, Line, Cross }
@@ -47,10 +37,8 @@ namespace DataModels
         [Header("Level")]
         public int requiredLevel = 1;
 
-        [Header("Skills that must already be learned")]
         public List<SkillBase> requiredSkills = new();
 
-        [Header("Attributes")]
         public List<AttributeRequirement> requiredAttributes = new();
 
         [Header("Usage requirements")]
@@ -106,6 +94,15 @@ namespace DataModels
     [System.Serializable]
     public class TargetData
     {
+        [Tooltip("Maximum distance from caster to valid target / AoE centre.")]
+        [Range(0.1f, 20f)]
+        public float range = 6f;
+        [Tooltip("If true, overrides range with weapon's range")]
+        public bool useWeaponRange = false; 
+        
+        public ValidTargets validTargets = ValidTargets.Self;
+        public bool canMultiTarget = true;
+        
         public ShapeType shape = ShapeType.Circle;
 
         [Tooltip("Radius for Circle / Cross arm length.")]
@@ -157,7 +154,6 @@ namespace DataModels
     [CreateAssetMenu(fileName = "NewSkill", menuName = "RPG/SkillBase")]
     public class SkillBase : ScriptableObject
     {
-        [Header("Identity")]
         public string skillName;
         [SkillHandlerKey]
         public string handlerKey;
@@ -169,32 +165,27 @@ namespace DataModels
         public string description;
         public Sprite icon;
 
-        [Header("Timing")]
         [Tooltip("Cooldown in turns (or seconds if you use real-time).")]
         public float cooldown = 3f;
 
-        [Header("Range")]
-        [Tooltip("Maximum distance from caster to valid target / AoE centre.")]
-        public float range = 6f;
-
-        public TargetingMode targetingMode = TargetingMode.SingleEnemy;
         public TargetData targetData;
 
-        [Header("Damage / Heal scaling")]
+		[Tooltip("If true, the skill's damage/heal/etc. is based on the weapon's damage instead of fixed min/max values.")]
+		public bool useWeaponDamage = false;
+		[Tooltip("scaling factor. Used for weapon based skills, where the final damage is weapon damage * scaling factor. For non-weapon-based skills, this can be used to adjust the overall power of the skill without changing the min/max values.")]
+		[Range(0f, 10f)]		
+		public float weaponScalingFactor = 1f; 
+
         [Tooltip("Min value before scaling (damage, heal amount, etc.).")]
         public float minValue = 10f;
         [Tooltip("Max value before scaling (damage, heal amount, etc.).")]
         public float maxValue = 10f;      
 
+
         // [Header("Status effects applied on cast")]
         // public List<SkillStatusEffectEntry> statusEffects = new();
 
-        [Header("Prerequisites")]
         public SkillPrerequisites prerequisites;
-
-        [Header("UI Tooltip extras")]
-        [TextArea(1, 3)]
-        public string flavorText;
 
         // ── Helpers ──────────────────────────────────────────────────────────
 
